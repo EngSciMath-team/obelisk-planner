@@ -2,7 +2,7 @@ import sbt.Keys.{libraryDependencies, version}
 
 ThisBuild / scalaVersion := "2.12.8"
 
-lazy val hello = (project in file("."))
+lazy val obelisk = (project in file("."))
   .enablePlugins(JavaAppPackaging)
   .settings(
     name := "obelisk-planner",

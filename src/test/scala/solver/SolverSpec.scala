@@ -1,6 +1,5 @@
 package solver
 
-
 import org.scalatest.FlatSpec
 
 class SolverSpec extends FlatSpec {

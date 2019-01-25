@@ -21,7 +21,7 @@ object Planner {
     }
   }
 
-  def plan(pathArg: String) = {
+  private def plan(pathArg: String) = {
     val path = Paths.get(pathArg)
     if (Files.exists(path)) {
       val recipes = Loader.loadRecipes(path)

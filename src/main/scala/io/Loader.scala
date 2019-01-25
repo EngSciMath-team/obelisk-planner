@@ -24,8 +24,7 @@ object Loader {
       fileRecipes.recipes
     }
 
-    println(recipes.size)
-
+    println(s"Found ${recipes.size} recipes to solve.")
     recipes
   }
 
