@@ -1,8 +1,8 @@
-package planner
+package io
 
 import java.io.File
 import java.nio.charset.StandardCharsets._
-import java.nio.file.{Files, Paths}
+import java.nio.file.{Files, Path, Paths}
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
@@ -10,10 +10,10 @@ import solver.Recipe
 
 case class RecipesArray(recipes: Seq[Recipe])
 
-object Planner {
+object Loader {
 
-  def loadRecipes(recipesPath: String): Seq[Recipe] = {
-    val recipeFiles = getListOfFiles(Paths.get(recipesPath).toFile)
+  def loadRecipes(recipesPath: Path): Seq[Recipe] = {
+    val recipeFiles = getListOfFiles(recipesPath.toFile)
 
     val mapper = new ObjectMapper()
     mapper.registerModule(DefaultScalaModule)

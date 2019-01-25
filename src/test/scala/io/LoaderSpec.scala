@@ -1,17 +1,17 @@
-package planner
+package io
 
 import java.nio.file.Paths
 
 import org.scalatest.FlatSpec
 import solver.Solver
 
-class PlannerSpec extends FlatSpec {
+class LoaderSpec extends FlatSpec {
 
 
-  "Planner" should "deserialize nicely" in {
+  "Loader" should "deserialize nicely" in {
     val recipesPath = Paths.get(".").toAbsolutePath + "/src/test/data/recipes"
 
-    val recipes = Planner.loadRecipes(recipesPath)
+    val recipes = Loader.loadRecipes(Paths.get(recipesPath))
 
     val result = Solver.solve(recipes)
 
