@@ -1,0 +1,54 @@
+{
+  "recipes": [
+    {
+      "id": 3,
+      "name": "Flower Growing",
+      "production": [
+        {
+          "resource": {
+            "id": 1,
+            "name": "Water",
+            "measurementUnit": "Cup",
+            "naturalProduction": 1
+          },
+          "production": -1
+        },
+        {
+          "resource": {
+            "id": 3,
+            "name": "Pot Time",
+            "measurementUnit": "Pot Month",
+            "naturalProduction": 1
+          },
+          "production": -3
+        },
+        {
+          "resource": {
+            "id": 4,
+            "name": "Flower",
+            "measurementUnit": "Item",
+            "naturalProduction": 0
+          },
+          "production": 1
+        }
+      ],
+      "utility": 0
+    },
+    {
+      "id": 4,
+      "name": "Flower Consumption",
+      "production": [
+        {
+          "resource": {
+            "id": 4,
+            "name": "Flower",
+            "measurementUnit": "Item",
+            "naturalProduction": 0
+          },
+          "production": -1
+        }
+      ],
+      "utility": 2
+    }
+  ]
+}

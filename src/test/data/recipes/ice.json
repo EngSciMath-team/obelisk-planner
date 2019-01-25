@@ -1,0 +1,45 @@
+{
+  "recipes": [
+    {
+      "id": 1,
+      "name": "Freezing",
+      "production": [
+        {
+          "resource": {
+            "id": 1,
+            "name": "Water",
+            "measurementUnit": "Cup",
+            "naturalProduction": 1
+          },
+          "production": -2
+        },
+        {
+          "resource": {
+            "id": 2,
+            "name": "Ice",
+            "measurementUnit": "Cube",
+            "naturalProduction": 0
+          },
+          "production": 3
+        }
+      ],
+      "utility": 0
+    },
+    {
+      "id": 2,
+      "name": "Ice Consumption",
+      "production": [
+        {
+          "resource": {
+            "id": 2,
+            "name": "Ice",
+            "measurementUnit": "Cube",
+            "naturalProduction": 0
+          },
+          "production": -1
+        }
+      ],
+      "utility": 1
+    }
+  ]
+}
