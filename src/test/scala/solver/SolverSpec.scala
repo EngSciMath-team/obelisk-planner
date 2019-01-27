@@ -83,6 +83,20 @@ class SolverSpec extends FlatSpec {
     assert(result.recipeSolutions(1).solution == 1.0)
     assert(result.recipeSolutions(2).solution == 0.3333333333333333)
     assert(result.recipeSolutions(3).solution == 0.3333333333333333)
+
+    // TODO: These tests are failing because of order of recipes
+    
+    val reorderedRecipes = List(flowerGrowingRecipe, flowerConsumptionRecipe, freezingRecipe, iceConsumptionRecipe)
+
+    val newResult = Solver.solve(reorderedRecipes)
+
+    // Test
+    assert(newResult.objectiveValue == 1.6666666666666665)
+    assert(newResult.recipeSolutions(0).solution == 0.33333333333333337)
+    assert(newResult.recipeSolutions(1).solution == 1.0)
+    assert(newResult.recipeSolutions(2).solution == 0.3333333333333333)
+    assert(newResult.recipeSolutions(3).solution == 0.3333333333333333)
+
   }
 
 }
