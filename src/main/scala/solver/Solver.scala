@@ -32,7 +32,7 @@ object Solver {
   def solve(recipes: Seq[Recipe]): SolverResult = {
 
     val model = new CLP().verbose(1)
-    val recipeVariables = recipes.map(recipe => RecipeVariable(recipe, model.addVariable()))
+    val recipeVariables = recipes.sortWith(_.id < _.id).map(recipe => RecipeVariable(recipe, model.addVariable()))
 
     // Figure out how many resources there are in the data. If the number is readily available elsewhere, make it an input of solve and remove this.
 
@@ -50,7 +50,6 @@ object Solver {
 
     var transposed : Array[List[(Int, Double)]] = Array.fill(nResources)(List[(Int, Double)]())
     var naturalProduction : Array[Double] = Array.fill(nResources)(0)
-
     recipes.foreach(recipe =>
       recipe.production.foreach{resourceProduction =>
         transposed(resourceProduction.resource.id-1) = (recipe.id, resourceProduction.production) :: transposed(resourceProduction.resource.id-1)
