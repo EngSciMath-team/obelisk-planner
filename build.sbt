@@ -15,6 +15,9 @@ lazy val obelisk = (project in file("."))
     // for application.conf file processing
     libraryDependencies += "com.typesafe" % "config" % "1.3.2",
 
+    libraryDependencies += "io.getquill" %% "quill-jdbc" % "3.1.0",
+    libraryDependencies += "mysql" % "mysql-connector-java" % "8.0.15",
+
     // For testing
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.0-SNAP10" % Test,
     libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.14.0" % Test

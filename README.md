@@ -68,3 +68,71 @@ To test the functionality, run PlannerSpec in test/scala/planner/PlannerSpec.sca
 Test data for the spec is in test/data directory
 
 Currently all files with a .json extension from a single directory are read. At some point we need to implement recursion into any existing subdirectories, pending decision on how file storage will be structured.
+
+## Database Setup
+
+- Install MySQL locally
+- Run the following:
+
+```
+DELETE FROM mysql.user WHERE user = '';
+
+create database obelisk;
+
+create user 'obelisk_user'@'%'  identified by '';
+
+grant all on obelisk.* to 'obelisk_user'@'%';
+```
+
+Then run the following (these should be added proper migrations via Flyway at some point):
+
+```
+CREATE TABLE IF NOT EXISTS resources (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    resource_name VARCHAR(256) NOT NULL,
+    natural_production DECIMAL(40,20) NOT NULL,
+    measurement_unit ENUM('Milliliter', 'Centimeter', 'Gram', 'Cup', 'Item', 'Cube', 'Pot Month'),
+    PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS recipes (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    recipe_name VARCHAR(256) NOT NULL,
+    utility DECIMAL(40,20) NOT NULL,
+    PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS production (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    recipe_id BIGINT NOT NULL,
+    resource_id BIGINT NOT NULL,
+    production DECIMAL(40,20) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY `fk__recipe_id` (recipe_id) REFERENCES recipes(id),
+    FOREIGN KEY `fk__resource_id` (resource_id) REFERENCES resources(id),
+    UNIQUE KEY `uk__recipe_id_resource_id` (recipe_id, resource_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+
+Then populate with test data:
+
+```
+INSERT INTO `resources` (`id`,`resource_name`,`natural_production`,`measurement_unit`) VALUES (1,'Water',1.00000000000000000000,'Cup');
+INSERT INTO `resources` (`id`,`resource_name`,`natural_production`,`measurement_unit`) VALUES (2,'Pot Time',1.00000000000000000000,'Pot Month');
+INSERT INTO `resources` (`id`,`resource_name`,`natural_production`,`measurement_unit`) VALUES (3,'Flower',0.00000000000000000000,'Item');
+INSERT INTO `resources` (`id`,`resource_name`,`natural_production`,`measurement_unit`) VALUES (4,'Ice',0.00000000000000000000,'Cube');
+
+INSERT INTO `recipes` (`id`,`recipe_name`,`utility`) VALUES (1,'Freezing',0.00000000000000000000);
+INSERT INTO `recipes` (`id`,`recipe_name`,`utility`) VALUES (2,'Ice Consumption',1.00000000000000000000);
+INSERT INTO `recipes` (`id`,`recipe_name`,`utility`) VALUES (3,'Flower Growing',0.00000000000000000000);
+INSERT INTO `recipes` (`id`,`recipe_name`,`utility`) VALUES (4,'Flower Consumption',2.00000000000000000000);
+
+INSERT INTO `production` (`id`,`recipe_id`,`resource_id`,`production`) VALUES (1,1,1,-2.00000000000000000000);
+INSERT INTO `production` (`id`,`recipe_id`,`resource_id`,`production`) VALUES (2,1,4,3.00000000000000000000);
+INSERT INTO `production` (`id`,`recipe_id`,`resource_id`,`production`) VALUES (3,2,4,-1.00000000000000000000);
+INSERT INTO `production` (`id`,`recipe_id`,`resource_id`,`production`) VALUES (4,3,1,-1.00000000000000000000);
+INSERT INTO `production` (`id`,`recipe_id`,`resource_id`,`production`) VALUES (5,3,2,-3.00000000000000000000);
+INSERT INTO `production` (`id`,`recipe_id`,`resource_id`,`production`) VALUES (6,3,3,1.00000000000000000000);
+INSERT INTO `production` (`id`,`recipe_id`,`resource_id`,`production`) VALUES (7,4,3,-1.00000000000000000000);
+
+```

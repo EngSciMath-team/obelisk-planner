@@ -5,13 +5,13 @@ import java.nio.file.Paths
 import org.scalatest.FlatSpec
 import solver.Solver
 
-class LoaderSpec extends FlatSpec {
+class FileLoaderSpec extends FlatSpec {
 
 
   "Loader" should "deserialize nicely" in {
     val recipesPath = Paths.get(".").toAbsolutePath + "/src/test/data/recipes"
 
-    val recipes = Loader.loadRecipes(Paths.get(recipesPath))
+    val recipes = FileLoader.loadRecipes(Paths.get(recipesPath))
 
     val result = Solver.solve(recipes)
 

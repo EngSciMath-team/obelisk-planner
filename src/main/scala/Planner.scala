@@ -1,7 +1,7 @@
 import java.nio.file.{Files, Paths}
 
 import com.typesafe.config.{Config, ConfigException, ConfigFactory}
-import io.Loader
+import io.{DbLoader, FileLoader}
 import solver.Solver
 
 object Planner {
@@ -24,7 +24,8 @@ object Planner {
   private def plan(pathArg: String) = {
     val path = Paths.get(pathArg)
     if (Files.exists(path)) {
-      val recipes = Loader.loadRecipes(path)
+      // val recipes = FileLoader.loadRecipes(path) <-  if you want to load from files, commented out for now
+      val recipes = DbLoader.loadRecipes
       val result = Solver.solve(recipes)
       println(result)
     } else {

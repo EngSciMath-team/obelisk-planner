@@ -10,7 +10,7 @@ import solver.Recipe
 
 case class RecipesArray(recipes: Seq[Recipe])
 
-object Loader {
+object FileLoader {
 
   def loadRecipes(recipesPath: Path): Seq[Recipe] = {
     val recipeFiles = getListOfFiles(recipesPath.toFile)
